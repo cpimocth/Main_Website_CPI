@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TPSO - ดัชนีราคาผู้บริโภค (CPI) Verification Dashboard</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root {
             --tpso-blue: #004a99;
@@ -77,6 +78,10 @@
             border: 1px solid transparent;
             text-align: center;
             line-height: 1.2;
+            background: rgba(194, 220, 244, 0.5);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
         }
         .link-item-custom:hover { background: #fff; border-color: var(--tpso-blue); transform: translateY(-2px); }
 
@@ -88,7 +93,39 @@
         
         .badge { background: #dcfce7; color: #166534; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; }
         .badge2 { background: #dcfce7; color: #dd7153; padding: 2px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: bold; }
-        .file-link { color: var(--tpso-blue); text-decoration: underline; font-weight: 600; }
+        /* 1. ตั้งค่าลิงก์ปกติให้ดูคลีน (ไม่มีเส้นขีดขวางตา) */
+.file-link {
+    color: var(--tpso-blue);
+    text-decoration: none; /* เอาเส้นขีดข้างล่างออก */
+    font-weight: 600;
+    transition: all 0.3s ease; /* ทำให้รอยต่อการเรืองแสงนุ่มนวล */
+    display: inline-block;
+    position: relative;
+}
+
+
+/* 2. ลูกเล่นเมื่อเมาส์วาง (Glow & Mask Effect) */
+.file-link:hover {
+    color: #007bff; /* เปลี่ยนสีให้สว่างขึ้น */
+    text-shadow: 0 0 10px rgba(0, 123, 255, 0.5); /* เรืองแสงรอบตัวอักษร */
+    transform: translateX(5px); /* ขยับขวาเล็กน้อยให้ดูมี Interaction */
+}
+
+/* 3. (Optional) ถ้าอยากให้มีเส้นใต้เฉพาะตอน Hover แต่เป็นเส้นสวยๆ */
+.file-link::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: var(--gold); /* ใช้สีทองขีดเส้นใต้ */
+    transition: width 0.3s ease;
+}
+
+.file-link:hover::after {
+    width: 100%; /* เส้นใต้จะค่อยๆ วิ่งออกมาตอนเมาส์วาง */
+}
         .btn-main-site { background: rgba(255,255,255,0.2); color: white; text-decoration: none; padding: 8px 15px; border-radius: 10px; font-size: 0.85rem; font-weight: 600; backdrop-filter: blur(5px); border: 1px solid rgba(255,255,255,0.3); transition: 0.3s; }
         .btn-main-site:hover { background: white; color: var(--tpso-blue); }
 
@@ -99,7 +136,7 @@
 
         /* สร้าง Class สำหรับเส้นคั่น */
         .row-divider {
-            border-top: 3px solid #333 !important; /* ปรับความหนาและสีของเส้นได้ที่นี่ */
+            border-top: 3px solid #898989 !important; /* ปรับความหนาและสีของเส้นได้ที่นี่ */
         }
         /* ขยายความกว้างของช่องเลือกวันที่ */
         input[type="date"] {
@@ -147,7 +184,219 @@
 
 /* ซ่อน Scrollbar ที่ไม่จำเป็น */
 .fc-scroller { overflow: hidden !important; }
-        
+/* ค้นหา .card แล้วแทนที่หรือเพิ่มต่อท้าย */
+.card {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 18px;
+    border: 1px solid var(--border);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); /* เพิ่มความนุ่มนวล */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* ลอยขึ้น */
+    box-shadow: 0 12px 20px rgba(0, 74, 153, 0.15); /* เงาเรืองแสงสีน้ำเงินจางๆ */
+    border-color: var(--tpso-blue); /* เปลี่ยนสีขอบเมื่อเอาเมาส์วาง */
+} 
+/* ค้นหา .link-item-custom และปรับปรุง */
+.link-item-custom {
+    /* ...โค้ดเดิมของคุณ... */
+    transition: all 0.2s ease-in-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.link-item-custom:hover {
+    background: var(--tpso-blue) !important; /* เปลี่ยนพื้นหลังเป็นสีน้ำเงิน */
+    color: white !important; /* เปลี่ยนตัวอักษรเป็นสีขาว */
+    transform: scale(1.1); /* ขยายขนาด */
+    z-index: 10;
+    box-shadow: 0 5px 15px rgba(0, 74, 153, 0.3);
+}
+/* เพิ่มเข้าไปใน <style> */
+tbody tr {
+    transition: all 0.2s;
+}
+
+tbody tr:hover {
+    background-color: #f0f7ff !important; /* สีฟ้าอ่อน */
+    cursor: pointer;
+}
+
+/* ทำให้ลิงก์ไฟล์ในตารางเรืองแสงเมื่อ Hover */
+.file-link:hover {
+    color: #ff5722; /* เปลี่ยนเป็นสีส้มสดใส */
+    text-shadow: 0 0 8px rgba(255, 87, 34, 0.4);
+    text-decoration: none;
+}
+.btn-main-site:hover {
+    background: white;
+    color: var(--tpso-blue);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6); /* เรืองแสงสีขาว */
+    transform: scale(1.05);
+} 
+/* ใส่ Glow ให้กับ Badge เมื่อ Hover */
+.badge:hover, .badge2:hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 10px rgba(22, 101, 52, 0.2);
+    transform: scale(1.05);
+    transition: all 0.2s;
+}
+/* กรอบนาฬิกาและวันที่ */
+.clock-card {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 10px 18px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    display: inline-block;
+    text-align: left;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    min-width: 160px;
+}
+
+/* ตัวเลขนาฬิกาทรงดิจิทัล */
+.glow-time {
+    font-family: 'Inter', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1;
+    text-shadow: 0 0 12px rgba(241, 196, 15, 0.4);
+    letter-spacing: 1px;
+}
+
+/* เพิ่มการโหลดแบบ Fade In เมื่อเปิดหน้าเว็บ */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.card {
+    animation: fadeIn 0.5s ease forwards;
+}
+/* สำหรับ Chrome, Safari และ Edge */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--tpso-blue);
+}
+.card {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+
+/* Container สำหรับควบคุมระดับการขยายของ Google Docs */
+.doc-container {
+    grid-column: span 3; /* ขยายเต็มความกว้าง 3 คอลัมน์ */
+    background: var(--card);
+    border-radius: 16px;
+    padding: 15px;
+    border: 1px solid var(--border);
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+.iframe-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 141.4%; /* สัดส่วน A4 (สูง/กว้าง) */
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid #eee;
+}
+
+.iframe-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+/* ปรับแต่ง Container สำหรับวางคู่กัน */
+.calendar-note-wrapper {
+    grid-column: span 3; /* คลุมพื้นที่แนวนอนทั้งหมด */
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* แบ่งซ้าย 2 ส่วน ขวา 1 ส่วน */
+    gap: 15px;
+}
+
+/* ปรับความสูงของ Note ให้พอดีกับปฏิทิน */
+.compact-doc-container {
+    height: 600px; /* ให้สูงเท่ากับความสูง iframe ของปฏิทิน */
+    display: flex;
+    flex-direction: column;
+}
+
+.compact-iframe-wrapper {
+    flex-grow: 1; /* ให้ iframe ขยายเต็มพื้นที่ที่เหลือในแนวตั้ง */
+    width: 100%;
+    position: relative;
+    border: 1px solid #eee;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.compact-iframe-wrapper iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* สำหรับมือถือ ให้กลับมาซ้อนกันเป็นแถวเดียว */
+@media (max-width: 992px) {
+    .calendar-note-wrapper {
+        grid-template-columns: 1fr;
+    }
+    .compact-doc-container {
+        height: 500px;
+    }
+}
+/* ปรับสัดส่วนใหม่ให้ปฏิทินกว้างขึ้น (3 ส่วน ต่อ 1 ส่วน) */
+.calendar-note-wrapper {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: 3fr 1fr; /* ปรับตรงนี้ให้ปฏิทินใหญ่ขึ้น */
+    gap: 12px; /* ลดช่องว่างลงเล็กน้อย */
+    margin-top: 15px;
+}
+
+/* ปรับความสูงให้คงที่และดูสมดุล */
+.calendar-card {
+    height: 650px; /* เพิ่มความสูงอีกนิดเพื่อให้ดูไม่อึดอัด */
+    padding: 0 !important;
+    overflow: hidden;
+}
+
+.compact-doc-container {
+    height: 650px;
+    display: flex;
+    flex-direction: column;
+    padding: 12px !important;
+}
+
+/* สำหรับมือถือ ให้ซ้อนกัน 100% */
+@media (max-width: 1024px) {
+    .calendar-note-wrapper {
+        grid-template-columns: 1fr;
+    }
+    .calendar-card, .compact-doc-container {
+        height: 500px;
+    }
+}
 
     </style>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
@@ -178,8 +427,17 @@
             <div class="header-text">
                 <h1>เอกสารดัชนีราคาผู้บริโภค (CPI)</h1>
                 <p>ประจำเดือน: <span id="month-year"></span> | กองดัชนีราคาเศรษฐกิจการค้า (สนค.)</p>
-                
             </div>
+<div class="clock-card">
+    <div id="current-date" style="font-size: 0.85rem; color: rgba(255,255,255,0.8); font-weight: 400; margin-bottom: 2px;">
+        กำลังโหลดวันที่...
+    </div>
+    <div style="display: flex; align-items: baseline; gap: 5px;">
+        <div id="digital-clock" class="glow-time">00:00:00</div>
+        <span style="color: var(--gold); font-size: 0.9rem; font-weight: 700;">น.</span>
+    </div>
+</div>
+        
 
             <a href="https://index.tpso.go.th/cpi" target="_blank" class="btn-main-site">🌐 เว็บไซต์หลัก CPI</a>
             
@@ -197,6 +455,7 @@
             <p style="font-size: 0.9rem; color: var(--text-sub);">
                 * ข้อมูลนี้ใช้ประกอบการตัดสินใจด้านนโยบายดอกเบี้ยของธนาคารแห่งประเทศไทย และการวางแผนงบประมาณภาครัฐ 
             </p>
+            
             
         </div>
 
@@ -220,6 +479,7 @@
             
             
         </div>
+        
  <div class="card table-card" style="padding: 12px;">
     <!-- <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <h3 style="margin:0; font-size: 1rem;">📅 บันทึกแผนงานและผลการดำเนินงาน</h3>
@@ -273,11 +533,63 @@
             </div>            
             <div id="calendar"></div>
         </div> -->
-<div class="card" style="grid-column: span 3; padding: 0; overflow: hidden;">
+<!-- <div class="card" style="grid-column: span 3; padding: 0; overflow: hidden;">
     <h3 style="padding: 18px 18px 0 18px;">📅 ปฏิทินปฏิบัติงาน สนค. (Google Calendar)</h3>
 <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FBangkok&src=Y3BpLm1vYy50aEBnbWFpbC5jb20&src=dGgudGgjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23039be5&color=%230b8043" style="border:solid 1px #777" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
 
+</div> -->
+<!-- 
+<div class="calendar-note-wrapper">
+    <div class="card" style="padding: 0; overflow: hidden; height: 600px;">
+    <h3 style="padding: 15px 15px 10px 15px;">📅 ปฏิทินปฏิบัติงาน สนค. (Google Calendar)</h3>
+<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FBangkok&src=Y3BpLm1vYy50aEBnbWFpbC5jb20&src=dGgudGgjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23039be5&color=%230b8043" style="border:solid 1px #777" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+ </div>
+
+<div class="card compact-doc-container">
+    <h3 style="margin:0 0 10px 0; font-size: 1rem;">📌 แก้ไข Note / ประกาศ</h3>
+    <div class="compact-iframe-wrapper">
+        <iframe src="https://docs.google.com/document/d/1EYbQ6cLCTnr3XjjrCWvO6V0NpdYpzApdt3I8KWyp4B4/edit?rm=minimal" 
+                style="width:100%; height:100%; border:none;"></iframe>
+    </div>
+    <p style="font-size: 0.7rem; color: var(--tpso-blue); margin: 8px 0 0 0; text-align: center; font-weight: bold;">
+        * คุณสามารถพิมพ์แก้ไขลงในช่องด้านบนได้ทันที
+    </p>
+            <a href="https://docs.google.com/document/d/1EYbQ6cLCTnr3XjjrCWvO6V0NpdYpzApdt3I8KWyp4B4/edit" 
+           target="_blank" 
+           style="font-size: 0.75rem; color: var(--tpso-blue); text-decoration: none; border: 1px solid var(--tpso-blue); padding: 2px 8px; border-radius: 5px;">
+           📝 แก้ไข
+        </a>
+</div> -->
+
+<div class="calendar-note-wrapper">
+    <div class="card calendar-card">
+        <h3 style="padding: 15px 15px 10px 15px; margin:0; font-size: 1rem;">📅 ปฏิทินปฏิบัติงาน สนค.</h3>
+        <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FBangkok&src=Y3BpLm1vYy50aEBnbWFpbC5jb20&src=dGgudGgjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23039be5&color=%230b8043&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0" 
+                style="border:none" width="100%" height="590" frameborder="0" scrolling="no"></iframe>
+    </div>
+
+    <div class="card compact-doc-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+            <h3 style="margin:0; font-size: 0.95rem;">📌 Note / ประกาศ</h3>
+            <a href="https://docs.google.com/document/d/1EYbQ6cLCTnr3XjjrCWvO6V0NpdYpzApdt3I8KWyp4B4/edit" 
+               target="_blank" 
+               style="font-size: 0.7rem; color: var(--tpso-blue); text-decoration: none; border: 1px solid var(--tpso-blue); padding: 1px 6px; border-radius: 4px;">
+               📝 เต็มจอ
+            </a>
+        </div>
+        
+        <div style="flex-grow: 1; border: 1px solid #eee; border-radius: 8px; overflow: hidden; background: #fff;">
+            <iframe src="https://docs.google.com/document/d/1EYbQ6cLCTnr3XjjrCWvO6V0NpdYpzApdt3I8KWyp4B4/edit?rm=minimal" 
+                    style="width:100%; height:100%; border:none;"></iframe>
+        </div>
+        
+        <p style="font-size: 0.65rem; color: var(--text-sub); margin-top: 8px; text-align: center; line-height: 1.2;">
+            * พิมพ์แก้ไขในช่องได้เลย <br> (คนในทีมต้องได้รับสิทธิ์ Editor)
+        </p>
+    </div>
 </div>
+
+
 
 
 <!-- <div class="card table-card">
@@ -327,10 +639,43 @@
         </div>              -->
   
         <div class="card table-card">
+            
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
                 <h3 style="margin:0;">📊 ไฟล์เอกสารทั้งหมด</h3>
                 <span style="font-size: 0.8rem; color: var(--text-sub);">อัปเดตล่าสุด</span>
+
             </div>
+            
+            <div style="margin-bottom: 20px; position: relative;">
+    <input type="text" id="tableSearch" onkeyup="filterTable()" placeholder="🔍 ค้นหาชื่อเอกสาร, ผู้ดำเนินการ หรือหมายเหตุ..." 
+    style="
+        width: 100%; 
+        padding: 12px 15px; 
+        border-radius: 12px; 
+        border: 2px solid var(--border); 
+        font-family: 'Sarabun'; 
+        font-size: 1rem;
+        outline: none;
+        transition: all 0.3s ease;
+        box-sizing: border-box;
+        background: rgba(255,255,255,0.9);
+    ">
+</div>
+
+<style>
+    /* ลูกเล่นเมื่อคลิกที่ช่องค้นหา */
+    #tableSearch:focus {
+        border-color: var(--tpso-blue);
+        box-shadow: 0 0 15px rgba(0, 74, 153, 0.2); /* เรืองแสงสีน้ำเงิน */
+        transform: translateY(-2px);
+    }
+
+    /* เมื่อพิมพ์ข้อมูล ให้ช่องดูเด่นขึ้น */
+    #tableSearch:not(:placeholder-shown) {
+        background: #fff;
+        border-color: var(--gold); /* เปลี่ยนขอบเป็นสีทองเมื่อมีการพิมพ์ */
+    }
+</style>
             <table>
                 <thead>
                     <tr>
@@ -438,46 +783,54 @@
                         <td>ส่วนกลาง/ต่างจังหวัด</td>
                         <td><span class="badge">ทุกวันศุกร์ สป. 2/3/4</span></td>
                         <td>ชุด อ</td>
-                    </tr>      
+                    </tr>   
+
+
 
                     <!-- !-- ส่งคุณต้น -- -->
-                   <tr class="row-divider">
-                        <td><a href="https://docs.google.com/spreadsheets/d/1UefDDtm7h2geVAYQmKa9OtMDfmutD1H9/edit?usp=sharing&ouid=107865202541656136031&rtpof=true&sd=true" target="_blank" class="file-link">
-                        📄คุณต้น ราคากลาง ชุด บ</a></td>
-                        <td>คุณต้น/พี่ปุ้ม</td>
-                        <td><span class="badge2">ยังไม่พร้อมใช้งาน</span></td>
-                        <td>ชุด บ</td>
-                    </tr>
-                    <tr>
+                    <tr class="row-divider">
+                    <td>
+                        <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                            <a href="..." class="file-link">📄 แทนที่ ราคากลาง ชุด บ</a>
+                            <span style="color: var(--text-sub); font-weight: bold;">,</span>
+                            <a href="..." class="file-link">📄 สินค้าหมด ราคากลาง ชุด บ</a>
+                        </div>
+                    </td>
+                    <td>คุณต้น/พี่ปุ้ม, ตุ๊กตา/กทม</td>
+                    <td><span class="badge2">ยังไม่พร้อมใช้งาน</span></td>
+                    <td></td> </tr>
+
+
+                        
                         <td><a href="https://docs.google.com/spreadsheets/d/1a1EEyT5UXbEwlK93g9jh1MSqs4G9Mc7e/edit?usp=sharing&ouid=107865202541656136031&rtpof=true&sd=true" target="_blank" class="file-link">
-                            📄คุณต้น ราคากลาง ชุด บ1</a></td>
+                            📄แทนที่ ราคากลาง ชุด บ1</a></td>
                         <td>คุณต้น/พี่ปุ้ม</td>
                         <td><span class="badge2">ยังไม่พร้อมใช้งาน</span></td>
                         <td>ชุด บ1</td>
                     </tr>                    
                     <tr>
                         <td><a href="https://docs.google.com/spreadsheets/d/1ZSX5LomK3FMGj_iId90IJQhIkofpFEe0/edit?usp=sharing&ouid=107865202541656136031&rtpof=true&sd=true" target="_blank" class="file-link">
-                            📄คุณต้น ราคากลาง ชุด น</a></td>
+                            📄แทนที่ ราคากลาง ชุด น</a></td>
                         <td>คุณต้น/พี่ปุ้ม</td>
                         <td><span class="badge2">ยังไม่พร้อมใช้งาน</span></td>
                         <td>ชุด น</td>
                     </tr>
                     <tr>
                         <td><a href="https://docs.google.com/spreadsheets/d/1xsSRUXDC4CBVdZI_JXbrNYQU0Wt1aoHf/edit?usp=sharing&ouid=107865202541656136031&rtpof=true&sd=true" target="_blank" class="file-link">
-                            📄คุณต้น ราคากลาง ชุด อ</a></td>
+                            📄แทนที่ ราคากลาง ชุด อ</a></td>
                         <td>คุณต้น/พี่ปุ้ม</td>
                         <td><span class="badge2">ยังไม่พร้อมใช้งาน</span></td>
                         <td>ชุด น</td>
                     </tr>                           
 
-                    <!-- #!--สินค้าหมด -- --> 
+                   <!-- #!--สินค้าหมด -- 
                    <tr class="row-divider">
                         <td ><a href="https://docs.google.com/spreadsheets/d/1WqNIouGBnwk6hQGKtBsTBPrbXK6xquHW/edit?usp=sharing&ouid=107865202541656136031&rtpof=true&sd=true" target="_blank" class="file-link">
                         📄สินค้าหมด ราคากลาง ชุด บ</a></td>
                         <td>กทม.</td>
                         <td><span class="badge">สัปดาห์แรก</span></td>
                         <td>ชุด บ</td>
-                    </tr>
+                    </tr> -->
                     <!-- <tr>
                         <td><a href="https://docs.google.com/spreadsheets/d/16eUc8bRQ5e5fJWRNxhp0boieESmhod0B/edit?usp=sharing&ouid=107865202541656136031&rtpof=true&sd=true" target="_blank" class="file-link">
                             📄สินค้าหมด ราคากลาง ชุด บ1</a></td>
@@ -504,6 +857,7 @@
                 </tbody>
             </table>
         </div>
+        
     <footer style="text-align: center; margin-top: 20px; font-size: 0.8rem; color: var(--text-sub);">
         &copy; 2026 กองดัชนีราคาเศรษฐกิจการค้า (สนค.) กระทรวงพาณิชย์
     </footer>
@@ -580,6 +934,24 @@ async function saveSchedule() {
     } finally {
         btn.innerText = "บันทึก";
         btn.disabled = false;
+    }
+}
+function filterTable() {
+    const input = document.getElementById("tableSearch");
+    const filter = input.value.toLowerCase().trim(); // เปลี่ยนเป็นตัวเล็กและตัดช่องว่างหน้า-หลัง
+    const table = document.querySelector("table"); // หรือระบุ Class ของตารางคุณ
+    const tr = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < tr.length; i++) {
+        // ดึงข้อความทั้งหมดในแถวนั้นมาต่อกัน
+        let rowContent = tr[i].innerText || tr[i].textContent;
+        
+        // ตรวจสอบว่ามีคำที่ค้นหาอยู่ใน rowContent หรือไม่
+        if (rowContent.toLowerCase().indexOf(filter) > -1) {
+            tr[i].style.display = ""; // แสดงแถว
+        } else {
+            tr[i].style.display = "none"; // ซ่อนแถว
+        }
     }
 }
       
@@ -790,6 +1162,44 @@ async function deleteEntry(timestamp) {
         alert("ไม่สามารถลบข้อมูลได้");
     }
 }
+function updateClock() {
+    const now = new Date();
+    const options = { hour: '2-digit', minute: '2-digit', second: '2-digit' };
+    const clockElement = document.getElementById('digital-clock');
+    if (clockElement) {
+        clockElement.innerText = now.toLocaleTimeString('th-TH', options) + " น.";
+    }
+}
+setInterval(updateClock, 1000);
+updateClock();
+function updateLiveDateTime() {
+    const now = new Date();
+
+    // 1. จัดการวันที่ (ภาษาไทย)
+    const dayOptions = { 
+        weekday: 'long', 
+        day: 'numeric', 
+        month: 'long', 
+        year: 'numeric' 
+    };
+    const thaiDate = now.toLocaleDateString('th-TH', dayOptions);
+    document.getElementById('current-date').innerText = thaiDate;
+
+    // 2. จัดการเวลา (วินาทีตัวเล็ก)
+    const h = String(now.getHours()).padStart(2, '0');
+    const m = String(now.getMinutes()).padStart(2, '0');
+    const s = String(now.getSeconds()).padStart(2, '0');
+
+    const clockElement = document.getElementById('digital-clock');
+    if (clockElement) {
+        // ทำวินาทีให้ตัวเล็กกว่าเพื่อความสวยงาม
+        clockElement.innerHTML = `${h}:${m}<span style="font-size: 1.1rem; opacity: 0.7; margin-left: 2px;">:${s}</span>`;
+    }
+}
+
+// สั่งทำงานทุกวินาที
+setInterval(updateLiveDateTime, 1000);
+updateLiveDateTime();
         
     </script>
 
