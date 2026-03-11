@@ -294,7 +294,168 @@ tbody tr:hover {
     -webkit-backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
+/* คุมเลย์เอาต์ให้วางคู่กัน */
+.calendar-note-wrapper {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr; /* ปรับสัดส่วน ปฏิทิน 60% : ตาราง 40% */
+    gap: 15px;
+    margin-top: 15px;
+}
 
+/* ปรับแต่ง Card ปฏิทิน */
+.calendar-card {
+    height: 680px;
+    padding: 0 !important;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+/* ปรับแต่ง Card Google Sheets */
+.table-card-embed {
+    height: 680px;
+    padding: 0 !important;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+}
+
+
+/* เมื่อดูในหน้าจอขนาดเล็ก (Tablet/Mobile) ให้เรียงต่อกันเป็นแนวตั้ง */
+@media (max-width: 1100px) {
+    .calendar-note-wrapper {
+        grid-template-columns: 1fr;
+    }
+    .calendar-card, .table-card-embed {
+        height: 550px; /* ลดความสูงลงเล็กน้อยเพื่อให้ดูง่ายขึ้น */
+    }
+}
+
+/* คุม Layout รวม */
+.dashboard-split-container {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: 2.2fr 0.8fr; /* ปฏิทินกว้าง 73% : Sheets กว้าง 27% */
+    gap: 15px;
+    margin-top: 15px;
+    height: 650px; /* คุมความสูงรวม */
+}
+
+/* สไตล์พื้นฐานของแต่ละฝั่ง */
+.minimal-section {
+    background: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* หัวข้อขนาดจิ๋ว (Label) */
+.section-label {
+    padding: 8px 15px;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    color: #a0aec0;
+    font-weight: 800;
+    display: flex;
+    justify-content: space-between;
+    background: #fafafa;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.section-label a {
+    text-decoration: none;
+    color: var(--tpso-blue);
+    font-weight: 700;
+}
+
+/* คุม Iframe ให้เต็มพื้นที่ */
+.iframe-wrapper {
+    flex-grow: 1;
+    position: relative;
+}
+
+/* จัดเลย์เอาต์ 75/25 */
+.calendar-sheet-split {
+    grid-column: span 3;
+    display: grid;
+    grid-template-columns: 2.25fr 0.75fr; 
+    gap: 12px;
+    margin-top: 15px;
+    height: 600px; /* ปรับความสูงตามต้องการ */
+}
+
+/* สไตล์ Card แบบไร้ขอบ (Borderless look) */
+.minimal-box {
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    border-radius: 8px;
+    border: 1px solid #f1f1f1;
+    overflow: hidden;
+}
+
+/* Label เล็กๆ ด้านบน */
+.box-label {
+    padding: 6px 12px;
+    font-size: 0.65rem;
+    color: #94a3b8;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    justify-content: space-between;
+    background: #fafafa;
+}
+
+.box-label a {
+    text-decoration: none;
+    color: var(--tpso-blue);
+}
+
+/* คุม Iframe ให้คลีนที่สุด */
+.iframe-inner {
+    flex-grow: 1;
+    position: relative;
+}
+
+.iframe-inner iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Responsive สำหรับจอเล็ก */
+@media (max-width: 1024px) {
+    .calendar-sheet-split {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+    .minimal-box { height: 500px; }
+}
+.iframe-wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* สำหรับหน้าจอมือถือ */
+@media (max-width: 1024px) {
+    .dashboard-split-container {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+    .minimal-section { height: 500px; margin-bottom: 15px; }
+}
 
 /* Container สำหรับควบคุมระดับการขยายของ Google Docs */
 .doc-container {
@@ -336,7 +497,7 @@ tbody tr:hover {
 
 /* ปรับความสูงของ Note ให้พอดีกับปฏิทิน */
 .compact-doc-container {
-    height: 600px; /* ให้สูงเท่ากับความสูง iframe ของปฏิทิน */
+    height: 850px; /* ให้สูงเท่ากับความสูง iframe ของปฏิทิน */
     display: flex;
     flex-direction: column;
 }
@@ -481,86 +642,8 @@ tbody tr:hover {
         </div>
         
  <div class="card table-card" style="padding: 12px;">
-    <!-- <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <h3 style="margin:0; font-size: 1rem;">📅 บันทึกแผนงานและผลการดำเนินงาน</h3>
-        <span id="last-update" style="font-size: 0.7rem; color: var(--text-sub);">อัปเดตล่าสุด: -</span>
-    </div> -->
-
-    <!-- <div style="background: #f8fafc; padding: 10px; border-radius: 8px; margin-bottom: 10px; border: 1px dashed var(--tpso-blue);">
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; align-items: flex-end;">
-            
-            <div style="display: flex; flex-direction: column; gap: 2px;">
-                <label style="font-size: 0.7rem; color: var(--tpso-blue); font-weight: 600;">ช่วงวันที่:</label>
-                <div style="display: flex; gap: 4px; align-items: center;">
-                    <input type="date" id="work-date-start" style="padding: 5px; border-radius: 6px; border: 1px solid var(--border); font-family: 'Sarabun'; font-size: 0.85rem; min-width: 130px;">
-                    <span style="font-size: 0.7rem;">-</span>
-                    <input type="date" id="work-date-end" style="padding: 5px; border-radius: 6px; border: 1px solid var(--border); font-family: 'Sarabun'; font-size: 0.85rem; min-width: 130px;">
-                </div>
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 2px;">
-                <label style="font-size: 0.7rem; color: var(--tpso-blue); font-weight: 600;">ชุดข้อมูล:</label>
-                <div style="display: flex; gap: 4px;">
-                    <select id="set-select" style="padding: 5px; border-radius: 6px; border: 1px solid var(--border); font-family: 'Sarabun'; font-size: 0.85rem; min-width: 180px;"></select>
-                    <button onclick="manageOptions()" style="background: #e2e8f0; border: none; border-radius: 6px; cursor: pointer; padding: 0 8px; font-size: 0.8rem;" title="ตั้งค่าตัวเลือก">⚙️</button>
-                </div>
-            </div>
-
-            <div style="display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 150px;">
-                <label style="font-size: 0.7rem; color: var(--tpso-blue); font-weight: 600;">รายละเอียด:</label>
-                <input type="text" id="work-detail" placeholder="ระบุรายละเอียด..." style="padding: 5px; border-radius: 6px; border: 1px solid var(--border); font-family: 'Sarabun'; font-size: 0.85rem; width: 100%; box-sizing: border-box;">
-            </div>
-
-            <button onclick="saveSchedule(this)" style="background: var(--tpso-blue); color: white; border: none; padding: 6px 15px; border-radius: 6px; cursor: pointer; font-family: 'Sarabun'; font-weight: 600; font-size: 0.85rem; height: 32px;">บันทึก</button>
-        </div>
-    </div> -->
-
-    <!-- <table style="font-size: 0.85rem;">
-        <thead>
-            <tr style="background: #f1f5f9;">
-                <th style="width: 200px; padding: 8px;">วันที่</th>
-                <th style="width: 140px; padding: 8px;">ชุดข้อมูล</th>
-                <th style="padding: 8px;">รายละเอียด</th>
-                <th style="width: 80px; text-align: center; padding: 8px;">จัดการ</th>
-            </tr>
-        </thead>
-        <tbody id="schedule-list"></tbody>
-    </table>
-</div> -->
-        <!-- <div class="card" style="grid-column: span 3;">
-            <div style="display: flex; justify-content: space-between; align-items: center;">
-                <h3>📅 ปฏิทินปฏิบัติงาน สนค. (บันทึกงานรายวัน)</h3>
-            </div>            
-            <div id="calendar"></div>
-        </div> -->
-<!-- <div class="card" style="grid-column: span 3; padding: 0; overflow: hidden;">
-    <h3 style="padding: 18px 18px 0 18px;">📅 ปฏิทินปฏิบัติงาน สนค. (Google Calendar)</h3>
-<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FBangkok&src=Y3BpLm1vYy50aEBnbWFpbC5jb20&src=dGgudGgjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23039be5&color=%230b8043" style="border:solid 1px #777" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
-
-</div> -->
+ 
 <!-- 
-<div class="calendar-note-wrapper">
-    <div class="card" style="padding: 0; overflow: hidden; height: 600px;">
-    <h3 style="padding: 15px 15px 10px 15px;">📅 ปฏิทินปฏิบัติงาน สนค. (Google Calendar)</h3>
-<iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FBangkok&src=Y3BpLm1vYy50aEBnbWFpbC5jb20&src=dGgudGgjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23039be5&color=%230b8043" style="border:solid 1px #777" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
- </div>
-
-<div class="card compact-doc-container">
-    <h3 style="margin:0 0 10px 0; font-size: 1rem;">📌 แก้ไข Note / ประกาศ</h3>
-    <div class="compact-iframe-wrapper">
-        <iframe src="https://docs.google.com/document/d/1EYbQ6cLCTnr3XjjrCWvO6V0NpdYpzApdt3I8KWyp4B4/edit?rm=minimal" 
-                style="width:100%; height:100%; border:none;"></iframe>
-    </div>
-    <p style="font-size: 0.7rem; color: var(--tpso-blue); margin: 8px 0 0 0; text-align: center; font-weight: bold;">
-        * คุณสามารถพิมพ์แก้ไขลงในช่องด้านบนได้ทันที
-    </p>
-            <a href="https://docs.google.com/document/d/1EYbQ6cLCTnr3XjjrCWvO6V0NpdYpzApdt3I8KWyp4B4/edit" 
-           target="_blank" 
-           style="font-size: 0.75rem; color: var(--tpso-blue); text-decoration: none; border: 1px solid var(--tpso-blue); padding: 2px 8px; border-radius: 5px;">
-           📝 แก้ไข
-        </a>
-</div> -->
-
 <div class="calendar-note-wrapper">
     <div class="card calendar-card">
         <h3 style="padding: 15px 15px 10px 15px; margin:0; font-size: 1rem;">📅 ปฏิทินปฏิบัติงาน สนค.</h3>
@@ -587,10 +670,76 @@ tbody tr:hover {
             * พิมพ์แก้ไขในช่องได้เลย <br> (คนในทีมต้องได้รับสิทธิ์ Editor)
         </p>
     </div>
+</div> -->
+
+<!-- 
+<div class="calendar-note-wrapper">
+    <div class="card calendar-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 15px 10px 15px;">
+            <h3 style="margin:0; font-size: 1rem;">📅 ปฏิทินปฏิบัติงาน สนค.</h3>
+        </div>
+        <iframe src="https://calendar.google.com/calendar/embed?height=600&wkst=1&ctz=Asia%2FBangkok&src=Y3BpLm1vYy50aEBnbWFpbC5jb20&src=dGgudGgjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23039be5&color=%230b8043&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=1&showCalendars=0&showTz=0" 
+                style="border:none" width="100%" height="600" frameborder="0" scrolling="no"></iframe>
+    </div>
+
+    <div class="card table-card-embed">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px 15px 10px 15px; border-bottom: 1px solid var(--border);">
+            <h3 style="margin:0; font-size: 0.95rem;">📊 บันทึกแผนงาน (Sheets)</h3>
+            <a href="https://docs.google.com/spreadsheets/d/1dEDKw2gGN2xYouJgyxvacbh7028KJQ23dQn8xK_yuwo/edit" 
+               target="_blank" 
+               style="font-size: 0.7rem; color: var(--tpso-blue); text-decoration: none; border: 1px solid var(--tpso-blue); padding: 2px 8px; border-radius: 4px;">
+                🟢 เต็มจอ
+            </a>
+        </div>
+        <div style="flex-grow: 1; position: relative; width: 100%;">
+            <iframe src="https://docs.google.com/spreadsheets/d/1dEDKw2gGN2xYouJgyxvacbh7028KJQ23dQn8xK_yuwo/edit?rm=minimal&widget=true&headers=false" 
+                    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+</div> -->
+
+<div class="calendar-sheet-split">
+    <div class="minimal-box">
+        <div class="box-label">SCHEDULE</div>
+        <div class="iframe-inner">
+            <iframe src="https://calendar.google.com/calendar/embed?wkst=1&ctz=Asia/Bangkok&src=Y3BpLm1vYy50aEBnbWFpbC5jb20&src=dGgudGgjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0" 
+                    style="border:0" frameborder="0" scrolling="no"></iframe>
+        </div>
+    </div>
+
+    <div class="minimal-box">
+        <div class="box-label">
+            TASKS 
+            <a href="https://docs.google.com/spreadsheets/d/1dEDKw2gGN2xYouJgyxvacbh7028KJQ23dQn8xK_yuwo/edit" target="_blank">↗</a>
+        </div>
+        <div class="iframe-inner">
+            <iframe src="https://docs.google.com/spreadsheets/d/1dEDKw2gGN2xYouJgyxvacbh7028KJQ23dQn8xK_yuwo/preview?rm=minimal&headers=false&chrome=false&widget=false&range=A:B" 
+                    style="width:100%; height:100%; border:none;"></iframe>
+        </div>
+    </div>
 </div>
 
+<!-- 
+<div class="dashboard-split-container">
+    <div class="minimal-section">
+        <div class="section-label">📅 CALENDAR</div>
+        <div class="iframe-wrapper">
+            <iframe src="https://calendar.google.com/calendar/embed?wkst=1&ctz=Asia/Bangkok&src=Y3BpLm1vYy50aEBnbWFpbC5jb20&src=dGgudGgjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&showTitle=0&showNav=1&showDate=1&showPrint=0&showTabs=0&showCalendars=0&showTz=0" 
+                    style="border:0" width="100%" height="100%" frameborder="0" scrolling="no"></iframe>
+        </div>
+    </div>
 
-
+    <div class="minimal-section">
+        <div class="section-label">
+            📊 TASK LIST 
+            <a href="https://docs.google.com/spreadsheets/d/1dEDKw2gGN2xYouJgyxvacbh7028KJQ23dQn8xK_yuwo/edit" target="_blank">OPEN</a>
+        </div>
+        <div class="iframe-wrapper">
+            <iframe src="https://docs.google.com/spreadsheets/d/1dEDKw2gGN2xYouJgyxvacbh7028KJQ23dQn8xK_yuwo/edit?rm=minimal&single=true&widget=false&headers=false&range=A:B" 
+                    style="border:0" width="100%" height="100%"></iframe>
+        </div>
+    </div>
+</div> -->
 
 <!-- <div class="card table-card">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
