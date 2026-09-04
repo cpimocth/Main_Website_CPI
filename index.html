@@ -856,6 +856,45 @@
   text-align: left; /* รายการย่อยข้างในคงไว้ที่ชิดซ้ายเพื่อให้อ่านง่าย */
   margin-top: 20px;
 }
+/* 1. คลาสสำหรับล้างค่าสีน้ำเงินและเส้นใต้ของลิงก์ */
+.reset-link {
+  text-decoration: none !important;
+  color: inherit !important;
+  display: block; 
+  margin-bottom: 16px; /* ระยะห่างระหว่างการ์ด */
+}
+
+/* 2. สไตล์การ์ดอิงจากใบแรกในรูป */
+.notice-card {
+  border: 1px solid #e5e7eb; /* สีขอบเทาอ่อน */
+  border-radius: 12px; /* มุมโค้งมนแบบในรูป */
+  padding: 16px 20px;
+  background-color: #f8fafc; /* พื้นหลังสีฟ้า/เทาอ่อนๆ */
+  transition: all 0.2s ease-in-out;
+}
+
+/* เอฟเฟกต์ตอนชี้เมาส์ */
+.notice-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+/* 3. สไตล์หัวข้อและเนื้อหา */
+.card-title {
+  display: block;
+  color: #1e3a8a; /* สีน้ำเงินเข้มแบบในรูป */
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.card-desc {
+  display: block;
+  color: #64748b; /* สีเทาอมฟ้า */
+  font-size: 14px;
+  line-height: 1.6;
+}
 
     </style>
   </head>
@@ -1675,16 +1714,28 @@
             <div class="notice-card">
               <strong>สถานะระบบล่าสุด</strong>
               <span
-                >สามารถใช้กล่องนี้สำหรับสรุปสถานะภาพรวมของระบบที่พร้อมใช้งาน
-                หรือรายการที่ต้องเร่งติดตาม</span
+                >กำลังดำเนินการเพื่อรองรับ 23AI</span
               >
             </div>
             <div class="notice-card">
-              <strong>KPI ส่วนกลาง</strong>
-              <!-- ครอบลิงก์ <a> ไว้ด้านนอกสุด เพื่อให้คลิกได้ทั้งกรอบ -->
-              <a href="https://padlet.com/hrdtpso/km-day-2026-town-hall-f7co9b4br17m117f" target="_blank" class="block max-w-xs no-underline text-inherit">
- <div style="left: 0; width: 100%; height: 300px; position: relative;"><iframe src="https://padlet.com/embed/f7co9b4br17m117f" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div>
-            </div>
+  <strong>KPI ส่วนกลาง</strong>
+  <!-- ครอบลิงก์ <a> ไว้ด้านนอกสุด เพื่อให้คลิกได้ทั้งกรอบ -->
+  <a href="https://padlet.com/hrdtpso/km-day-2026-town-hall-f7co9b4br17m117f" target="_blank" class="block max-w-xs no-underline text-inherit mt-2">
+    
+    <!-- Container สำหรับกำหนดขนาดกรอบที่จะแสดงผล (ความสูงปรับได้ตามต้องการ) -->
+    <div style="width: 100%; height: 150px; position: relative; overflow: hidden; border-radius: 8px; background-color: #f3f4f6;">
+      
+      <!-- ขยาย iframe เป็น 500% แล้วใช้ scale(0.2) เพื่อย่อให้เหลือ 20% -->
+      <iframe 
+        src="https://padlet.com/embed/f7co9b4br17m117f" 
+        style="width: 500%; height: 500%; position: absolute; top: 0; left: 0; border: 0; transform: scale(0.2); transform-origin: top left; pointer-events: none;" 
+        allowfullscreen>
+      </iframe>
+      
+    </div>
+    
+  </a>
+</div>
           </div>
         </div>
         
