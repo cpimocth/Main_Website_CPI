@@ -1605,7 +1605,7 @@
         <div class="admin-panel">
           
           <h3>ระบบจัดการข้อมูลและรายงานอัตโนมัติ </h3>
-          <!-- <h4>ใช้รหัส 1234 </h4> -->
+          <h4>ใช้รหัส 1234 </h4>
           <p>
             <!-- โซนนี้ออกแบบให้สื่อชัดว่าเป็น “ศูนย์ควบคุมภาพรวม” ของระบบรายงาน CPI สำหรับผู้มีสิทธิ์ใช้งานในระดับบริหาร
           โดยแยกการใช้งานที่ต้องยืนยันสิทธิ์ออกจากเว็บ dashboard ทั่วไปอย่างชัดเจน -->
@@ -1800,14 +1800,14 @@
       //     alert('รหัสผ่านไม่ถูกต้อง');
       //   }
       // }
-      // function checkAuth(path) {
-      //   const pwd = prompt("กรุณากรอกรหัสผ่าน");
-      //   if (pwd === "1234") {
-      //     window.open(path, "_blank");
-      //   } else if (pwd !== null) {
-      //     alert("รหัสผ่านไม่ถูกต้อง");
-      //   }
-      // }
+      function checkAuth(path) {
+        const pwd = prompt("กรุณากรอกรหัสผ่าน");
+        if (pwd === "1234") {
+          window.open(path, "_blank");
+        } else if (pwd !== null) {
+          alert("รหัสผ่านไม่ถูกต้อง");
+        }
+      }
 
       updateMonthYear();
       updateLiveDateTime();
